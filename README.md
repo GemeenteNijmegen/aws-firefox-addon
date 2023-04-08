@@ -13,7 +13,7 @@ Two configuration json options
 
 ## Building
 - Incrase version number
-- Run build.sh
+- Run `yarn build`
 - Upload zip to firefox addon people
 
 ## Installation
