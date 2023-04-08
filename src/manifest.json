@@ -1,0 +1,32 @@
+{
+  "manifest_version": 2,
+  "name": "GemeenteNijmegen AWS",
+  "version": "1.5",
+  "description": "Show the currently assumed role and environment in AWS console.",
+  "content_scripts": [
+    {
+      "matches": [
+        "*://*.aws.amazon.com/*"
+      ],
+      "js": [
+        "./modules/ContainerUrlLoader.js",
+        "./modules/DOM.js",
+        "./modules/Scanner.js",
+        "./main.js"
+      ]
+    }
+  ],
+  "options_ui": {
+    "page": "options.html"
+  },
+  "permissions": [
+    "storage",
+    "contextualIdentities",
+    "tabs"
+  ],
+  "browser_specific_settings": {
+    "gecko": {
+      "id": "devops@nijmegen.nl"
+    }
+  }
+}
