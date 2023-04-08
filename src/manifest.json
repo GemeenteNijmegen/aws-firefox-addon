@@ -9,10 +9,17 @@
         "*://*.aws.amazon.com/*"
       ],
       "js": [
-        "./modules/ContainerUrlLoader.js",
         "./modules/DOM.js",
         "./modules/Scanner.js",
         "./main.js"
+      ]
+    },
+    {
+      "matches": [
+        "https://gemeentenijmegen.awsapps.com/start*"
+      ],
+      "js": [
+        "./open_in_containers.js"
       ]
     }
   ],
@@ -22,11 +29,19 @@
   "permissions": [
     "storage",
     "contextualIdentities",
-    "tabs"
+    "tabs",
+    "cookies"
   ],
   "browser_specific_settings": {
     "gecko": {
       "id": "devops@nijmegen.nl"
     }
-  }
+  },
+  "protocol_handlers": [
+    {
+      "protocol": "ext+gn",
+      "name": "GemeenteNijmegen handler",
+      "uriTemplate": "opener/opener.html#%s"
+    }
+  ]  
 }

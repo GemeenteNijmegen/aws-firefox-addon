@@ -1,11 +1,6 @@
-
 run()
   .then(() => console.info("GemeenteNijmegen: account hint shown!"))
   .catch(error => console.error("GemeenteNijmegen: account could not be shown!", error))
-
-const container = new ContainerURLLoader('test', 'red');
-container.loadURL('https://google.com');
-
 
 /**
  * Main run method loads config and shows the hint
