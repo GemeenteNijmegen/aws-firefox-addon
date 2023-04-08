@@ -67,12 +67,14 @@ class ContainerURLLoader {
   }
 
   async loadURL(url) {
+    const currentIndex = await this.getCurrentTabIndex();
     const identities = await browser.contextualIdentities.query({ name: this.containerName });
     const identity = identities[0];
     if(identity){
       const openURL = confirm(`Would you like to open the url ${url} in container ${this.containerName} ?`);
       if(openURL){
-        await this.openUrlInContainer(url, identity.cookieStoreId);
+        await this.openUrlInContainer(url, identity.cookieStoreId, currentIndex);
+        await this.closeCurrentTab();
       }
       return;
     }
@@ -80,7 +82,8 @@ class ContainerURLLoader {
     const prompt = confirm(`The container ${this.containerName} does not exist. Would you like to create the container and open ${url} ?`);
     const container = await this.createContainer();
     if(prompt) { 
-      await this.openUrlInContainer(url, container.cookieStoreId) 
+      await this.openUrlInContainer(url, container.cookieStoreId, currentIndex);
+      await this.closeCurrentTab();
     }
   }
 
@@ -92,11 +95,22 @@ class ContainerURLLoader {
     });
   }
 
-  async openUrlInContainer(url, cookieStoreId){
+  async openUrlInContainer(url, cookieStoreId, index){
     browser.tabs.create({
       url: url,
-      cookieStoreId: cookieStoreId
+      cookieStoreId: cookieStoreId,
+      index: index,
     });
+  }
+
+  async closeCurrentTab() {
+    let currentTab = await browser.tabs.getCurrent()
+    await browser.tabs.remove(currentTab.id)
+  }
+  
+  async getCurrentTabIndex(){
+    let currentTab = await browser.tabs.getCurrent();
+    return currentTab.index;
   }
 }
 
