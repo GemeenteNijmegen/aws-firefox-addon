@@ -30,6 +30,9 @@ async function run() {
   if(!role){
     hint = accountName;
   }
+  if(role && role.endsWith('-ep')){
+    hint = `⚠️ ${hint} ⚠️`;
+  }
   dom.showAccountIdHint(document, hint, accountColor);
 
 }
