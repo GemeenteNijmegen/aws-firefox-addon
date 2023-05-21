@@ -1,13 +1,32 @@
-run()
+runSync(true);
+
+try {
+  const accountInformationHtml = document.querySelector('body');
+  console.log(accountInformationHtml)
+} catch (error) {
+  console.error("Could not find body:", error);
+}
+
+function runSync(retry){
+  run()
   .then(() => console.info("GemeenteNijmegen: account hint shown!"))
-  .catch(error => console.error("GemeenteNijmegen: account could not be shown!", error))
+  .catch(error => {
+    console.error("GemeenteNijmegen: account could not be shown!", error);
+    if(retry){
+      console.info("Scheduling retries in 2, 5 and 10 seconds...");
+      setTimeout(() => runSync(false), 2000);
+      setTimeout(() => runSync(false), 5000);
+      setTimeout(() => runSync(false), 10000);
+    }
+  });
+}
 
 /**
  * Main run method loads config and shows the hint
  */
 async function run() {
   const accountIds = await getAccountIdsFromConfiguration();
-  const accountInformationHtml = document.querySelector('[data-testid="account-detail-menu"]').innerHTML;
+  const accountInformationHtml = document.querySelector('div[data-testid="account-detail-menu"]').innerHTML;
 
   const dom = new DOM();
   const scanner = new Scanner();
