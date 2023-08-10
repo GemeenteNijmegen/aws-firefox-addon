@@ -1,5 +1,5 @@
 
-## Configuration
+## Configuration file (should be published somewhere)
 Two configuration json options
 ```json
 {
@@ -10,9 +10,14 @@ Two configuration json options
   "123456789012": "account-name"
 }
 ```
+If no color is porvided the color is selected based on the account name.
+- Default: blue
+- Acceptance/accp/acc: yellow
+- Production/prod/prd: orange
+- mpa: red
 
 ## Building
-- Incrase version number
+- Bump version number
 - Run `yarn build`
 - Upload zip to firefox addon people
 

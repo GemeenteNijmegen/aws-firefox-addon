@@ -1,5 +1,4 @@
-const ACCOUNTIDS_INPUT_ID = '#accountIds';
-const EXAMPLE_DATA = {"0123456789012": "account-name"};
+const CONFIG_URL_FIELD = '#configUrl';
 
 /**
  * Save the values of the form in firefox storage
@@ -8,21 +7,23 @@ const EXAMPLE_DATA = {"0123456789012": "account-name"};
 function saveOptions(e) {
   e.preventDefault();
 
-  const accountIds = document.querySelector(ACCOUNTIDS_INPUT_ID).value;
-
-  try {
-    if(accountIds){
-      JSON.parse(accountIds);
-    }
-  } catch( error ){
+  const configUrl = document.querySelector(CONFIG_URL_FIELD).value;
+  setConfigFromUrl(configUrl).then(() => {
+    alert('saved!');
+  }).catch((error) => {
     alert('Could not set account IDs, invalid JSON?', error);
-    return;
-  }
+  });
 
+}
+
+async function setConfigFromUrl(url) {
+  const accountIds = await fetch(url);
+  if(accountIds){
+    JSON.parse(accountIds);
+  }
   browser.storage.sync.set({
     accountIds: accountIds
   });
-  alert('saved!');
 }
 
 /**
@@ -31,7 +32,7 @@ function saveOptions(e) {
 function restoreOptions() {
 
   function setCurrentChoice(result) {
-    document.querySelector(ACCOUNTIDS_INPUT_ID).value = result.accountIds || JSON.stringify(EXAMPLE_DATA, null, 4);
+    document.querySelector(ACCOUNTIDS_INPUT_ID).value = result.accountIds;
   }
 
   function onError(error) {

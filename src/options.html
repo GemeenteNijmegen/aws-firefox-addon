@@ -6,19 +6,12 @@
 
   <body>
     <form>
-      <h1>Account IDs as JSON</h1>
-      <textarea id="accountIds" name="accountIds" cols="75" rows="15"></textarea>
-      <p>Example:</p>
-      <pre>
-{
-  "123456789012": {
-    name: "account-name",
-    color: "red | orange | yellow | green | blue | none"
-  },
-  "123456789012": "account-name"
-}
-      </pre>
+
+      <h1>Config from url</h1>
+      <p>Provide a url of the JSON configuration file to load</p>
+      <input id="configUrl" type="text" name="configUrl" />
       <button type="submit">Save</button>
+
     </form>
 
     <script src="options.js"></script>
