@@ -17,12 +17,12 @@ function saveOptions(e) {
 }
 
 async function setConfigFromUrl(url) {
-  const accountIds = await fetch(url);
-  if(accountIds){
-    JSON.parse(accountIds);
-  }
+  const response = await fetch(url);
+  const accountIds = await response.json();
+  const json = JSON.stringify(accountIds, null, 4);
+  alert(json);
   browser.storage.sync.set({
-    accountIds: accountIds
+    accountIds: json
   });
 }
 
