@@ -29,22 +29,30 @@
   "644063989309": "gemeentenijmegen-test-9",
   "622995636577": "gemeentenijmegen-test-10",
 
-  "302838002127": { "name": "gn-audit", "color": "red" },
-  "751076321715": "gn-backup",
-  "836443378780": { "name": "gn-build", "color": "blue" },
-  "766983128454": "gn-geo-data-acceptance",
-  "530584348862": "gn-log-archive",
-  "427617903428": { "name": "gn-mpa", "color": "#ff0000" },
+
+  "427617903428": { "name": "gn-mpa", "color": "red" },
   "043872078922": { "name": "gn-network", "color": "red" },
+
+  "302838002127": { "name": "gn-audit", "color": "blue" },
+  "751076321715": { "name": "gn-backup", "color": "blue" },
+  "836443378780": { "name": "gn-build", "color": "blue" },
+  "530584348862": { "name": "gn-log-archive", "color": "blue" },
+
   "833119272131": "gn-sandbox-01",
   "049753832279": "gn-sandbox-marnix",
   "095798249317": "gn-workload-test",
+
+  "320517247925": "gn-irvn-prod",
+  "185512167111": "gn-yivi-prod",
   "699363516011": "gn-yivi-accp",
-  "549334216741": "gn-geo-data-production",
   "528030426040": "gn-yivi-brp-issue-accp",
   "079163754011": "gn-yivi-brp-issue-prod",
-  "320517247925": "gn-irvn-prod",
+  "766983128454": "gn-geo-data-acceptance",
+  "549334216741": "gn-geo-data-production",
   "021929636313": "gn-mijn-nijmegen-accp",
   "740606269759": "gn-mijn-nijmegen-prod",
-  "185512167111": "gn-yivi-prod"
+  "471236387053": "gn-tribebrplinker-development",
+  "987304085258": "gn-tribebrplinker-acceptance",
+  "962664892091": "gn-tribebrplinker-production",
+  "358927146986": "gn-webform-submission-storage-dev"
 }
