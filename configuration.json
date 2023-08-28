@@ -54,5 +54,9 @@
   "471236387053": "gn-tribebrplinker-development",
   "987304085258": "gn-tribebrplinker-acceptance",
   "962664892091": "gn-tribebrplinker-production",
-  "358927146986": "gn-webform-submission-storage-dev"
+  "358927146986": "gn-webform-submission-storage-dev",
+  "033598396027":"gn-webforms-dev",
+  "338472043295":"gn-webforms-accp",
+  "147064197580":"gn-webforms-prod",
+  "654477686593":"gn-static-websites-prod"
 }
