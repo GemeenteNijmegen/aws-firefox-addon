@@ -58,5 +58,9 @@
   "033598396027":"gn-webforms-dev",
   "338472043295":"gn-webforms-accp",
   "147064197580":"gn-webforms-prod",
-  "654477686593":"gn-static-websites-prod"
+  "654477686593":"gn-static-websites-prod",
+  "649781704230": "gn-verwerkingenlogging-accp",
+  "887474129159": "gn-verwerkingenlogging-prod",
+  "768900902886": "gn-component-library-accp",
+  "706611162248": "gn-component-library-prod"
 }
