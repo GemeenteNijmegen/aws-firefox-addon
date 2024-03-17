@@ -1,4 +1,5 @@
-const accountLinkPrefix = 'https://gemeentenijmegen.awsapps.com/start/#/saml/custom/'
+const accountLinkPrefixOld = 'https://gemeentenijmegen.awsapps.com/start/#/saml/custom/'
+const accountLinkPrefixNew = 'https://gemeentenijmegen.awsapps.com/start/#/console?'
 
 const off = localStorage.getItem("gn-turn-off");
 
@@ -11,7 +12,9 @@ if(!off){
       //e.preventDefault();
       const href = link.getAttribute('href');
       console.log(href);
-      if(href && href.startsWith(accountLinkPrefix)){
+      const isOldConsoleLink = href && href.startsWith(accountLinkPrefixOld);
+      const isNewConsoleLink = href && href.startsWith(accountLinkPrefixNew);
+      if(isOldConsoleLink || isNewConsoleLink){
         const newHref = 'ext+gn' + href.substring(5);
         console.log('Altering link:', href, newHref);
         link.setAttribute('href', newHref);
