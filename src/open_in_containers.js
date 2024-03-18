@@ -1,24 +1,36 @@
 const accountLinkPrefixOld = 'https://gemeentenijmegen.awsapps.com/start/#/saml/custom/'
-const accountLinkPrefixNew = 'https://gemeentenijmegen.awsapps.com/start/#/console?'
+const accountLinkPrefixNew = '#/console?'
+const prefix = 'ext+gn://gemeentenijmegen.awsapps.com/start/'
 
 const off = localStorage.getItem("gn-turn-off");
 
+if (!off) {
+  check();
+}
 
-if(!off){
-  document.addEventListener("click", function(e){
-    const link = e.target.closest("a");
-  
-    if(link){
-      //e.preventDefault();
-      const href = link.getAttribute('href');
-      console.log(href);
-      const isOldConsoleLink = href && href.startsWith(accountLinkPrefixOld);
-      const isNewConsoleLink = href && href.startsWith(accountLinkPrefixNew);
-      if(isOldConsoleLink || isNewConsoleLink){
-        const newHref = 'ext+gn' + href.substring(5);
-        console.log('Altering link:', href, newHref);
-        link.setAttribute('href', newHref);
-      }
+// Run this every 100ms
+function check(){
+  alterLinksOnPage();
+  console.log('Checking for new links on page');
+  setTimeout(check, 500);
+}
+
+function alterLinksOnPage(){
+  const links = document.getElementsByTagName('a');
+  for (const link of links) {
+    const href = link.getAttribute('href');
+    const isOldConsoleLink = href && href.startsWith(accountLinkPrefixOld);
+    const isNewConsoleLink = href && href.startsWith(accountLinkPrefixNew);
+    if (isOldConsoleLink || isNewConsoleLink) {
+      console.log('Altering link', href);
+      // Alter url
+      const newHref = prefix + href;
+      console.log('New href', newHref);
+      link.setAttribute('href', newHref);
+
+      // Remove event listners
+      const newLink = link.cloneNode(true);
+      link.parentNode.replaceChild(newLink, link);
     }
-  });
+  }
 }

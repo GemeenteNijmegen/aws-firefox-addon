@@ -154,8 +154,7 @@ function lookupAccountId(accountId, accountIds) {
 }
 
 function getAccountIdFromUrl(url){
-  // https://gemeentenijmegen.awsapps.com/start/#/saml/custom/766983128454%20%28gn-geo-data-acceptance%29/....
-  const prefix = 'https://gemeentenijmegen.awsapps.com/start/#/saml/custom/';
+  const prefix = 'https://gemeentenijmegen.awsapps.com/start/';
   if(!url.startsWith(prefix)){
     throw Error(`Url ${url} is not an Gemeente Nijmegen AWS account URL`);
   }
