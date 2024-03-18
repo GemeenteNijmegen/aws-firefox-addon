@@ -154,10 +154,11 @@ function lookupAccountId(accountId, accountIds) {
 }
 
 function getAccountIdFromUrl(url){
-  const prefix = 'https://gemeentenijmegen.awsapps.com/start/';
+  const prefix = 'https://gemeentenijmegen.awsapps.com/start/#/console?account_id=';
   if(!url.startsWith(prefix)){
     throw Error(`Url ${url} is not an Gemeente Nijmegen AWS account URL`);
   }
+
   return url.substring(prefix.length, prefix.length + 12); 
 }
 
