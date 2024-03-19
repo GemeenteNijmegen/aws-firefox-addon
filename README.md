@@ -38,4 +38,4 @@ Install the xpi file provied after signing and validation by firefox addon peopl
 - Choose voorkeuren/preferences in the menu of the GemeenteNijmegen AWS addon voorkeuren/preferences
 - Paste the configuration.json url in the Config Url input and save
   
-  ![alt text](<Firefox addon aws nijmegen.png>)
+  ![firefox addon page](<./assets/Firefox addon aws nijmegen.png>)
