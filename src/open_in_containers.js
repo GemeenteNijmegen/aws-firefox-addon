@@ -1,6 +1,6 @@
 const accountLinkPrefixOld = 'https://gemeentenijmegen.awsapps.com/start/#/saml/custom/'
 const accountLinkPrefixNew = '#/console?'
-const prefix = 'ext+gn://gemeentenijmegen.awsapps.com/start/'
+const prefix = 'https://gemeentenijmegen.awsapps.com/start/'
 
 const off = localStorage.getItem("gn-turn-off");
 
@@ -15,7 +15,7 @@ function check(){
   setTimeout(check, 500);
 }
 
-function alterLinksOnPage(){
+async function alterLinksOnPage(){
   const links = document.getElementsByTagName('a');
   for (const link of links) {
     const href = link.getAttribute('href');
@@ -26,12 +26,25 @@ function alterLinksOnPage(){
       // Alter url
       const newHref = prefix + href;
       console.log('New href', newHref);
-      link.setAttribute('href', newHref);
+      link.setAttribute('href', '#');
+      // link.setAttribute('new_href', newHref);
       link.removeAttribute('target');
+      
 
       // Remove event listners
       const newLink = link.cloneNode(true);
       link.parentNode.replaceChild(newLink, link);
+
+      // Adding event listner for handling click events on the new link
+      newLink.addEventListener('click', async e => {
+        e.preventDefault();
+        e.stopPropagation();
+        e.stopImmediatePropagation();
+        console.log('sending message...');
+        await browser.runtime.sendMessage({
+          target: newHref,
+        });
+      })
     }
   }
 }

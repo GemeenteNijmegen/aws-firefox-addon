@@ -70,21 +70,18 @@ class ContainerURLLoader {
     const currentIndex = await this.getCurrentTabIndex();
     const identities = await browser.contextualIdentities.query({ name: this.containerName });
     const identity = identities[0];
+
+    
     if(identity){
-      const openURL = confirm(`Would you like to open the url ${url} in container ${this.containerName} ?`);
-      if(openURL){
-        await this.openUrlInContainer(url, identity.cookieStoreId, currentIndex);
-        await this.goBackInCurrentTab();
-      }
+      console.log('Dispatching url opening');
+      await this.openUrlInContainer(url, identity.cookieStoreId, currentIndex);
+      // await this.goBackInCurrentTab();
       return;
     }
 
-    const prompt = confirm(`The container ${this.containerName} does not exist. Would you like to create the container and open ${url} ?`);
     const container = await this.createContainer();
-    if(prompt) { 
-      await this.openUrlInContainer(url, container.cookieStoreId, currentIndex);
-      await this.goBackInCurrentTab();
-    }
+    await this.openUrlInContainer(url, container.cookieStoreId, currentIndex);
+    // await this.goBackInCurrentTab();
   }
 
   async createContainer(){
@@ -96,6 +93,7 @@ class ContainerURLLoader {
   }
 
   async openUrlInContainer(url, cookieStoreId, index){
+    console.log('Opening url in container...');
     browser.tabs.create({
       url: url,
       cookieStoreId: cookieStoreId,
@@ -104,38 +102,21 @@ class ContainerURLLoader {
   }
 
   async closeCurrentTab() {
-    let currentTab = await browser.tabs.getCurrent()
+    let currentTab = await browser.tabs.query({active: true});
     await browser.tabs.remove(currentTab.id)
   }
 
   async goBackInCurrentTab() {
-    let currentTab = await browser.tabs.getCurrent()
+    let currentTab = await browser.tabs.query({active: true});
     await browser.tabs.goBack(currentTab.id)
   }
   
   async getCurrentTabIndex(){
-    let currentTab = await browser.tabs.getCurrent();
-    return currentTab.index;
+    let attentionTabs = await browser.tabs.query({active: true});
+    return attentionTabs[0].index;
   }
 }
 
-const customProtocolPrefix = 'ext+gn';
-
-
-function parseOpenerParams(rawHash) {
-  if (rawHash[0] != '#') {
-      throw new Error('not a valid location hash')
-  }
-
-  const uri = decodeURIComponent(rawHash.substring(1))
-
-  if (!uri.startsWith(customProtocolPrefix)) {
-      throw new Error('unknown URI protocol')
-  }
-
-  return 'https' + uri.substring(customProtocolPrefix.length);
-  
-}
 
 /**
  * Lookup in storage the configured account IDs
@@ -167,18 +148,24 @@ function getAccountIdFromUrl(url){
   return url.substring(prefix.length, prefix.length + 12); 
 }
 
-async function run(){
-  const url = parseOpenerParams(window.location.hash);
+async function run(url){
+  // const url = parseOpenerParams(window.location.hash);
   const accountId = getAccountIdFromUrl(url);
   const configuration = await getAccountIdsFromConfiguration();
   const accountDetails = lookupAccountId(accountId, configuration);
+  console.log('Fount account details', accountDetails);
   let name = accountDetails;
   if(typeof accountDetails == 'object'){
     name = accountDetails.name;
   }
   const container = new ContainerURLLoader(name);
+  console.log('Starting container...');
   await container.loadURL(url);
 }
 
 
-run().then(() => console.log('Success!')).catch(err => console.error("Could not open in container", err))
+function handleMessage(request, sender, sendResponse) {
+  console.log(`A content script sent a message: ${request.target}`);
+  run(request.target);
+}
+browser.runtime.onMessage.addListener(handleMessage);

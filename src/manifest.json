@@ -37,11 +37,11 @@
       "id": "devops@nijmegen.nl"
     }
   },
-  "protocol_handlers": [
-    {
-      "protocol": "ext+gn",
-      "name": "GemeenteNijmegen handler",
-      "uriTemplate": "opener/opener.html#%s"
-    }
-  ]  
+  "background": {
+    "scripts": [
+      "opener/opener.js"
+    ],
+    "persistent": false,
+    "type": "module"
+  }
 }
