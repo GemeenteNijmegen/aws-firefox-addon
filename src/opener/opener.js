@@ -74,7 +74,7 @@ class ContainerURLLoader {
       const openURL = confirm(`Would you like to open the url ${url} in container ${this.containerName} ?`);
       if(openURL){
         await this.openUrlInContainer(url, identity.cookieStoreId, currentIndex);
-        await this.closeCurrentTab();
+        await this.goBackInCurrentTab();
       }
       return;
     }
@@ -83,7 +83,7 @@ class ContainerURLLoader {
     const container = await this.createContainer();
     if(prompt) { 
       await this.openUrlInContainer(url, container.cookieStoreId, currentIndex);
-      await this.closeCurrentTab();
+      await this.goBackInCurrentTab();
     }
   }
 
@@ -99,13 +99,18 @@ class ContainerURLLoader {
     browser.tabs.create({
       url: url,
       cookieStoreId: cookieStoreId,
-      index: index,
+      index: index+1,
     });
   }
 
   async closeCurrentTab() {
     let currentTab = await browser.tabs.getCurrent()
     await browser.tabs.remove(currentTab.id)
+  }
+
+  async goBackInCurrentTab() {
+    let currentTab = await browser.tabs.getCurrent()
+    await browser.tabs.goBack(currentTab.id)
   }
   
   async getCurrentTabIndex(){

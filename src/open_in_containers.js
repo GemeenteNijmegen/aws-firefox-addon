@@ -27,6 +27,7 @@ function alterLinksOnPage(){
       const newHref = prefix + href;
       console.log('New href', newHref);
       link.setAttribute('href', newHref);
+      link.removeAttribute('target');
 
       // Remove event listners
       const newLink = link.cloneNode(true);
