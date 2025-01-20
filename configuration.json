@@ -39,6 +39,7 @@
   "530584348862": { "name": "gn-log-archive", "color": "blue" },
 
   "833119272131": "gn-sandbox-01",
+  "941377141741": "gn-sandbox-bram",
   "049753832279": "gn-sandbox-marnix",
   "471112523908": "gn-sandbox-martijn",
   "011672839752": "gn-sandbox-michel",
@@ -77,5 +78,12 @@
   "768900902886": "gn-component-library-accp",
   "706611162248": "gn-component-library-prod",
   "145023129433": "gn-mijn-services-accp",
-  "692859927138": "gn-mijn-services-prod"
+  "692859927138": "gn-mijn-services-prod",
+  "043309345347": "gn-open-forms-accp",
+  "761018864362": "gn-open-forms-prod",
+  "528757829324": "gn-verzoekservicewerkinkomen-accp",
+  "222634384969": "gn-verzoekservicewerkinkomen-prod",
+  "084828568398": "gn-haal-centraal-brp-dev",
+  "448049813413": "gn-haal-centraal-brp-accp",
+  "980921728594": "gn-haal-centraal-brp-prod"
 }
